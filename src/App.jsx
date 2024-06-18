@@ -3,7 +3,7 @@ import Questions from './components/Questions'
 
 const App = () => {
 
-  const [dataset , setDataset] = React.useState({ })
+  const [quiz , setQuiz] = React.useState([])
   const [value , setValue] = React.useState(false)
   const [toggle , setToggle] = React.useState(true)
 
@@ -15,19 +15,21 @@ const App = () => {
             throw new Error('Network response was not ok')
         }
         const data = await response.json()
-        console.log(data)
-        console.log(data.results)
-        console.log(typeof data)
-        console.log(typeof data.results)
-        setDataset(data)
-        console.log(dataset)
-           
+        
+        const elements = data.results.map((item, index) => {
+          return {
+            question: item.question,
+            key: index
+          }
+        })
+
+        setQuiz(elements)
+    
     }catch (error){
         console.error(error.message)
     }
   }
-
-  console.log(dataset)
+  
 
   function handleButtonClick(){
     setValue(!(value))
@@ -39,11 +41,6 @@ const App = () => {
       fetchdata()
     }
   }, [value])
-
-    const elements = dataset.results.map((item, index) => {
-      <Questions question={question} key={index} />
-    })
-  
 
 
   const landingpage = (
@@ -58,15 +55,21 @@ const App = () => {
     </div>
   )
 
+
     
-   
+   const mapper = quiz.map((item,index) => {
+    <Questions question={item.question} key={index}/>
+   })
   
+   const quizElement = (
+    {mapper}
+   )
 
 
 
   return (
     <div className='main'>
-      {toggle ? landingpage : elements }
+      {toggle ? landingpage : quizElement} 
     </div>
   )
 }
