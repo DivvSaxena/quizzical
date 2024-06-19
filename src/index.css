@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
 
-
-.main{
-    border: 2px solid #121211;
+*{
+    background-color: #F5F7FB;
 }
+
 
 .container{
     display: flex;
@@ -11,6 +11,17 @@
     align-items: center;
     max-width: 550px;
     height: 550px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.quiz-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 550px;
     background: #F5F7FB;
     margin: 0 auto;
     position: relative;
@@ -79,3 +90,100 @@
     box-shadow: 2px 2px 50px #575752;
 }
 
+.question{
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.question > h1{
+    font-family: 'Karla';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #293264;
+}
+
+
+input[name=option] {
+    display: none
+  }
+
+  label:has(input:checked) {
+    background: #D6DBF5;
+  }
+
+  hr{
+    width: 100%;
+  }
+
+.options-provided label{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-appearance: button;
+    /* WebKit */
+    -moz-appearance: button;
+    /* Mozilla */
+    -o-appearance: button;
+    /* Opera */
+    -ms-appearance: button;
+    /* Internet Explorer */
+    appearance: button;
+    /* CSS3 */
+    height: 20.65px;
+    border: 0.794239px solid #4D5B9E;
+    border-radius: 7.94239px;
+    margin-left: 1em;
+    color: #293264;
+    font-size: 1rem;
+    padding: 0.5em;
+    margin-bottom: 1em;
+}
+
+.options-provided label:hover {
+    background: #DDD;
+  }
+
+.options-provided {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    box-sizing: border-box;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10.24px;
+    line-height: 12px;
+    text-align: center;
+    color: #293264;
+ }
+
+
+ .btn-submit{
+    width: 120px;
+    height: 35px;
+    background: #4D5B9E;
+    border-radius: 10px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 12px;
+    text-align: center;
+    color: #F5F7FB;
+    border: none;
+    cursor: pointer;
+    margin: 1em auto;
+ }
+
+ .btn-submit:focus{
+    box-shadow: 5px 5px 5px #5634ac;
+ }
+
+ .forms{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ }
