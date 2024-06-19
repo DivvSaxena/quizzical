@@ -1,38 +1,35 @@
 import React from 'react'
-
-const Questions = (props) => {
-  // console.log('rendering question component')
-  // console.log(props.option)
-
-  const [state, setState] = React.useState(0)
+import he from 'he'
+const Questions = ({question , option , questionkey , handleAnswerChange}) => {
+ 
 
   function handleChange(e){
-    if(e.target.value == props.correct_answer){
-      console.log('matched')
-      setState((prevState) => prevState + 1)
-    }else{
-      console.log('not matched')
-    }
+    handleAnswerChange(questionkey,e.target.value)
   }
 
-  console.log(state)
-
-  const options_for_question = props.option.map((item) => {
-    return (<label>
-              <input type='radio' name='option' value={item} onChange={handleChange} />
-              {item}
-            </label>
+  const optionsForQuestion = option.map((item,index) => {
+    return (
+          <label key={index}>
+              <input 
+                type='radio' 
+                name={`options-${questionkey}`} 
+                value={item} 
+                onChange={handleChange} 
+              />
+              
+              {he.decode(item)}
+          </label>
           )
   })
 
   return (
     <>
       <div className='question'>
-        <h1>{props.question}</h1>
-        <form className='options-provided'>
-          {options_for_question}
+        <h1>{question}</h1>
+        <div className='options-provided'>
+          {optionsForQuestion}
           <hr />
-        </form>
+        </div>
       </div>
     </>
    

@@ -105,9 +105,9 @@
 }
 
 
-input[name=option] {
+input[type='radio'] {
     display: none
-  }
+}
 
   label:has(input:checked) {
     background: #D6DBF5;
@@ -162,6 +162,8 @@ input[name=option] {
 
 
  .btn-submit{
+    position: relative;
+    z-index: 2;
     width: 120px;
     height: 35px;
     background: #4D5B9E;
@@ -186,4 +188,23 @@ input[name=option] {
     display: flex;
     flex-direction: column;
     align-items: center;
+ }
+
+ .playagain{
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 80%;
+ }
+
+ .playagain > h1{  
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 15px;
+    text-align: center;
+    color: #293264;
  }

@@ -7,7 +7,9 @@ const App = () => {
   const [quiz , setQuiz] = React.useState([])
   const [value , setValue] = React.useState(false)
   const [toggle , setToggle] = React.useState(true)
-  
+  const [answers, setAnswers] = React.useState({})
+  const [score, setScore] = React.useState(0)
+  const [submitbtn , setSubmitBtn] = React.useState(false)
 
   const fetchdata = async () =>{
     console.log('Fetching data from API');
@@ -20,12 +22,17 @@ const App = () => {
 
         //  console.log(data.results)
         
+        
         const elements = data.results.map((item, index) => {
+          const arr = item.incorrect_answers.concat(item.correct_answer)
+          const shuffledarr = arrayToShuffle(arr)
+
           return {
             question: he.decode(item.question),
             key: index,
+            options: shuffledarr,
             incorrect_answers: item.incorrect_answers,
-            correct_answer: item.correct_answer
+            correct_answer:item.correct_answer
           }
         })
 
@@ -40,6 +47,11 @@ const App = () => {
   function handleButtonClick(){
     setValue(!(value))
     setToggle(!toggle)
+  }
+
+  function handlePlayButtonClick(){
+    setToggle(!toggle)
+    setSubmitBtn(!(submitbtn))
   }
 
   React.useEffect(() => {
@@ -73,17 +85,46 @@ const App = () => {
     return arrayToShuffle
   }
 
+
+  const handleAnswerChange = (questionkey,answer) => {
+    setAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      [questionkey]: answer
+    }))
+  }
+
    const mapper = quiz.map((item,index) => {
-    let arr = item.incorrect_answers.concat(item.correct_answer)
-    let shuffledarr = arrayToShuffle(arr)
-    
-     return <Questions question={item.question} key={index} option={shuffledarr} correct_answer={item.correct_answer} />
-   })
+   
+     return (
+              <Questions 
+                question={item.question} 
+                key={index} 
+                option={item.options} 
+                questionkey={index}
+                correct_answer={item.correct_answer} 
+                handleAnswerChange={handleAnswerChange}
+              />
+            )
+    })
+
+    console.log(answers)
 
    function handleSubmit(e){
     e.preventDefault()
     console.log('form submitted')
+    let score = 0
+    quiz.forEach((item,index) => {
+      if(answers[index] === item.correct_answer){
+        score += 1
+      }
+    })
+    setScore(score)
+    console.log(`Your score is ${score}/${quiz.length}`)
+    setSubmitBtn(!(submitbtn))
    }
+
+   console.log(`Submit button: ${submitbtn}`)
+   
   
    const quizElement = (
     <div className='quiz-page'>
@@ -91,7 +132,11 @@ const App = () => {
       <div className='irr-two'></div>
       <form className='forms' onSubmit={handleSubmit}>
         {mapper}
-        <button className='btn-submit'>Submit</button>
+        {!(submitbtn) && <button className='btn-submit'>Submit</button>}
+        {submitbtn && <div className='playagain'>
+          <h1>Your score is {score}/{quiz.length}</h1>
+          <button className='btn-submit' onClick={handlePlayButtonClick}>Play Again</button>
+        </div>}
       </form>
       
     </div>
