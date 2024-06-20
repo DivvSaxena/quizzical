@@ -10,6 +10,8 @@ const App = () => {
   const [answers, setAnswers] = React.useState({})
   const [score, setScore] = React.useState(0)
   const [submitbtn , setSubmitBtn] = React.useState(false)
+  const [submitted , setSubmitted] = React.useState(false)
+  
 
   const fetchdata = async () =>{
     console.log('Fetching data from API');
@@ -103,14 +105,17 @@ const App = () => {
                 questionkey={index}
                 correct_answer={item.correct_answer} 
                 handleAnswerChange={handleAnswerChange}
+                submitted={submitted}
               />
             )
     })
 
     console.log(answers)
 
+
    function handleSubmit(e){
     e.preventDefault()
+    setSubmitted(!submitted)
     console.log('form submitted')
     let score = 0
     quiz.forEach((item,index) => {
