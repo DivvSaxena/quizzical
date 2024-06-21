@@ -69,7 +69,7 @@ const App = () => {
         <div className='irr-two'></div>
         <div className="central-descrp">
             <h1>Quizzical</h1>
-            <h2>Some description if needed</h2>
+            <h2>kbc - season of react</h2>
             <button onClick={handleButtonClick}>Start quiz</button>
         </div>
     </div>
